@@ -7,7 +7,7 @@ const state = {
 };
 
 const agreeAudio = new Audio('./access/music/hbbd.mp3');
-const rejectAudio = new Audio('./access/music/hbbd.mp3');
+const rejectAudio = new Audio('./access/music/tuchoi.mp3');
 
 function playAgreeMusic() {
     agreeAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
@@ -17,6 +17,11 @@ function playAgreeMusic() {
 function playRejectMusic() {
     rejectAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
     changeScreen('rejected');
+}
+
+function playRejectEarlyMusic() {
+    rejectAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
+    changeScreen('reject_questions');
 }
 
 // Hàm loại bỏ dấu tiếng Việt để kiểm tra đáp án dễ hơn
@@ -55,94 +60,111 @@ const screens = {
             <button onclick="checkDob()">Tiếp tục</button>
         `
     },
+    notification: {
+        render: () => `
+            <h2>Thông báo 📢</h2>
+            <p>Để nhận được phần quà, bạn cần tham gia trả lời loạt câu hỏi thử thách nhé!</p>
+            <br>
+            <button onclick="changeScreen('q1')">Bắt đầu tham gia</button>
+            <button class="secondary-btn" onclick="playRejectEarlyMusic()">Từ chối</button>
+        `
+    },
+    reject_questions: {
+        render: () => `
+            <h2>Cảm ơn bạn đã ghé qua! 👋</h2>
+            <p>Rất tiếc vì bạn không thể tham gia thử thách.</p>
+            <br>
+            <button onclick="resetGame()">Quay lại màn hình chính</button>
+        `
+    },
     q1: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
             <h2>Câu hỏi 1 😈</h2>
-            <p>Cái gì đen khi bạn mua nó, đỏ lúc bạn dùng nó và xám xịt khi bạn vứt nó đi?</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <p>Một cây gậy và một quả bóng giá 1.10 đô la. Cây gậy đắt hơn quả bóng 1.00 đô la. Quả bóng giá bao nhiêu xu?</p>
+            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('than', 'q2', 'Đọc kỹ lại xem, vật gì đốt lên màu đỏ?', 'cuc than', 'than cui')">Trả lời</button>
+            <button onclick="checkAnswer('10', 'q2', 'Sai rồi! Gợi ý: Nếu bóng là 10 xu thì gậy là 1.10 đô, tổng sẽ là 1.20 đô mất.', 'nam', '5 xu', 'nam xu')">Trả lời</button>
         `
     },
     q2: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
             <h2>Câu hỏi 2 🤯</h2>
-            <p>Có một từ mà 100% người dân Việt Nam đều phát âm sai. Đó là từ gì?</p>
-            <input type="text" id="answer" placeholder="Nhập từ..." autocomplete="off">
+            <p>Nếu bạn mất 5 phút để luộc chín 1 quả trứng, vậy bạn mất bao nhiêu phút để luộc chín 5 quả trứng cùng lúc?</p>
+            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('sai', 'q3', 'Đơn giản lắm, nghĩ theo nghĩa đen nhé!')">Trả lời</button>
+            <button onclick="checkAnswer('5', 'q3', 'Sai rồi! Gợi ý: Luộc cùng lúc trong 1 nồi thì thời gian vẫn vậy thôi.', '5 phut', 'nam', 'nam phut')">Trả lời</button>
         `
     },
     q3: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
             <h2>Câu hỏi 3 🕵️</h2>
-            <p>Bà đó bả chết bả bay lên trời. Hỏi bà ấy chết năm bao nhiêu tuổi (nhập số)?</p>
+            <p>Bác sĩ đưa cho bạn 3 viên thuốc và dặn cứ 30 phút uống 1 viên. Hỏi sau bao nhiêu phút bạn sẽ uống hết số thuốc đó?</p>
             <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('73', 'q4', 'Hãy đọc lái chữ bả bay xem ra số mấy nhé!', 'bay ba')">Trả lời</button>
+            <button onclick="checkAnswer('60', 'q4', 'Sai rồi! Gợi ý: Viên đầu tiên bạn uống ngay lập tức ở phút thứ 0.', '60 phut', 'sau muoi', '1 tieng')">Trả lời</button>
         `
     },
     q4: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
             <h2>Câu hỏi 4 🔠</h2>
-            <p>Từ nào trong tiếng Việt có 9 chữ 'h'?</p>
-            <input type="text" id="answer" placeholder="Nhập từ..." autocomplete="off">
+            <p>Có hai người cha và hai người con đi câu cá. Họ câu được chính xác 3 con cá. Lúc về mỗi người xách 1 con. Vì sao?</p>
+            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('chinh', 'q5', 'Nghĩ thử xem 9 h (chín h) ghép lại đọc là gì?', 'chu chinh')">Trả lời</button>
+            <button onclick="checkAnswer('3 nguoi', 'q5', 'Sai rồi! Gợi ý: Hãy nghĩ về các thế hệ trong cùng một gia đình.', 'co 3 nguoi', 'ong bo con', 'ong, bo, con')">Trả lời</button>
         `
     },
     q5: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
             <h2>Câu hỏi 5 ➗</h2>
-            <p>Một thợ mộc cưa khúc gỗ dài 10m thành các khúc 1m. Mỗi lần cưa mất 1 phút. Hỏi làm liên tục thì để cưa xong tốn bao nhiêu phút?</p>
+            <p>Một nông dân có 17 con cừu. Tất cả trừ 9 con đều chết. Hỏi người nông dân còn sống bao nhiêu con cừu?</p>
             <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('9', 'q6', 'Nhát cưa cuối cùng là đứt luôn khúc cuối rồi, tính lại đi!', '9 phut', 'chin phut')">Trả lời</button>
+            <button onclick="checkAnswer('9', 'q6', 'Sai rồi! Gợi ý: Đọc kỹ lại câu hỏi, TẤT CẢ TRỪ 9 CON ĐỀU CHẾT.', '9 con', 'chin')">Trả lời</button>
         `
     },
     q6: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
             <h2>Câu hỏi 6 🔎</h2>
-            <p>Ba phòng: Phòng 1 đầy lửa, Phòng 2 đầy sát thủ, Phòng 3 có bầy sư tử nhịn đói 3 năm. Vào phòng nào an toàn nhất (nhập số)?</p>
-            <input type="text" id="answer" placeholder="VD: 1, 2, 3..." autocomplete="off">
+            <p>Bạn đang chạy marathon và vượt qua người chạy cuối cùng. Bạn đang ở vị trí thứ mấy?</p>
+            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('3', 'q7', 'Sư tử nhịn đói 3 năm thì sao nhỉ?', 'phong 3')">Trả lời</button>
+            <button onclick="checkAnswer('người cuối cùng', 'q7', 'Sai rồi! Gợi ý: Nếu bạn chạy sau người cuối cùng thì bạn mới là người cuối cùng chứ, sao mà vượt họ được!', 'khong co', 'vo ly', 'sai')">Trả lời</button>
         `
     },
     q7: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
             <h2>Câu hỏi 7 🎩</h2>
-            <p>Cái gì rõ ràng thuộc về bạn, nhưng những người xung quanh bạn lại sử dụng nó nhiều hơn bạn?</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <p>Cái gì luôn luôn đến nhưng không bao giờ tới?</p>
+            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('ten', 'q8', 'Mọi người hay dùng cái đó để gọi bạn!', 'cai ten', 'ten cua ban')">Trả lời</button>
+            <button onclick="checkAnswer('ngay mai', 'q8', 'Sai rồi! Gợi ý: Dù bạn thức dậy vào ngày nào thì tên gọi của đối tượng đó cũng đã thay đổi.', 'thu tu ranh', 'tuong lai')">Trả lời</button>
         `
     },
     q8: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
             <h2>Câu hỏi 8 📐</h2>
-            <p>Án mạng ở một ngôi nhà HÌNH TRÒN. Lời khai: Người hầu đang quét góc nhà. Đầu bếp đang thái thịt. Ai là hung thủ giả dối?</p>
-            <input type="text" id="answer" placeholder="Nhập tên người..." autocomplete="off">
+            <p>Trước khi đỉnh Everest được con người khám phá, ngọn núi nào cao nhất thế giới?</p>
+            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('nguoi hau', 'q9', 'Nhà hình tròn thì có CÁI GÓC nào không?', 'nguoi hau gai')">Trả lời</button>
+            <button onclick="checkAnswer('everest', 'q9', 'Sai rồi! Gợi ý: Dù con người đã tìm ra nó hay chưa thì sự thật vẫn không đổi.', 'nui everest', 'dinh everest')">Trả lời</button>
         `
     },
     q9: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
             <h2>Câu hỏi 9 🏆</h2>
-            <p>Tháng nào trong năm có 28 ngày?</p>
+            <p>Nếu bạn chỉ có một que diêm, và bước vào một căn phòng tối lạnh lẽo có một bếp dầu, một bếp củi và một ngọn nến. Bạn sẽ thắp cái nào đầu tiên?</p>
             <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('12', 'q10', 'Người ta hỏi tháng nào có 28 ngày, chứ đâu hỏi tháng nào CHỈ CÓ 28 ngày?', 'tat ca', '12 thang', 'thang nao cung co')">Trả lời</button>
+            <button onclick="checkAnswer('que diem', 'q10', 'Sai rồi! Gợi ý: Cần lửa để thắp những thứ kia thì bạn phải bật cái gì lên trước?', 'diem')">Trả lời</button>
         `
     },
     q10: {
@@ -252,7 +274,7 @@ function checkDob() {
     const userAnswer = input.value.trim();
     
     if (userAnswer === '29/03/2006' || userAnswer === '29/3/2006') {
-        changeScreen('q1');
+        changeScreen('notification');
     } else {
         state.error = 'Xin lỗi, bạn không phải là người đặc biệt trong hôm nay!';
         render();
