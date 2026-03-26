@@ -298,3 +298,27 @@ function checkAnswer(expectedResult, nextScreen, errorMsg, ...alternativeResults
 
 // Bắt đầu ứng dụng
 render();
+
+// --- CHẶN F12 & CHUỘT PHẢI ---
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    window.location.reload();
+});
+
+document.addEventListener('keydown', function(e) {
+    // Chặn F12
+    if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        window.location.reload();
+    }
+    // Chặn Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        window.location.reload();
+    }
+    // Chặn Ctrl+U (Xem mã nguồn)
+    if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+        e.preventDefault();
+        window.location.reload();
+    }
+});
