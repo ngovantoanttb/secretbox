@@ -1,7 +1,7 @@
 const app = document.getElementById('app');
 
 const state = {
-    currentScreen: 'nameCheck',
+    currentScreen: 'greeting',
     error: '',
     progress: 0
 };
@@ -27,11 +27,20 @@ function removeAccents(str) {
 }
 
 const screens = {
+    greeting: {
+        render: () => `
+            <h2>Chào Mừng! 🎈</h2>
+            <p>Hòm thư bí mật này chứa đựng những điều đặc biệt.</p>
+            <p>Hãy ấn nút bên dưới để bắt đầu nhé!</p>
+            <br>
+            <button onclick="changeScreen('nameCheck')">Bắt đầu</button>
+        `
+    },
     nameCheck: {
         render: () => `
             <h2>Xác nhận danh tính 🌸</h2>
-            <p>Tên người đặc biệt trong hôm nay là gì?</p>
-            <input type="text" id="answer" placeholder="Nhập tên..." autocomplete="off">
+            <p>Hãy nhập tên của bạn vào đây</p>
+            <input type="text" id="answer" placeho  lder="Nhập tên..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
             <button onclick="checkName()">Tiếp tục</button>
         `
@@ -224,7 +233,7 @@ function resetGame() {
     agreeAudio.currentTime = 0;
     rejectAudio.pause();
     rejectAudio.currentTime = 0;
-    changeScreen('nameCheck');
+    changeScreen('greeting');
 }
 
 function checkName() {
@@ -234,7 +243,7 @@ function checkName() {
     if (userAnswer === 'huyen') {
         changeScreen('dobCheck');
     } else {
-        state.error = 'Bạn không phải là người cần chúc! Hoặc hãy nhập lại tên cho đúng nhé.';
+        state.error = 'Bạn không phải là người đặc biệt hôm nay! Hãy nhập lại tên cho đúng nhé.';
         render();
     }
 }
