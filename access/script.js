@@ -40,7 +40,7 @@ const screens = {
         render: () => `
             <h2>Xác nhận danh tính 🌸</h2>
             <p>Hãy nhập tên của bạn vào đây</p>
-            <input type="text" id="answer" placeho  lder="Nhập tên..." autocomplete="off">
+            <input type="text" id="answer" placeholder="Nhập tên..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
             <button onclick="checkName()">Tiếp tục</button>
         `
@@ -58,91 +58,91 @@ const screens = {
     q1: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
-            <h2>Câu hỏi 1 (Dân gian) 🧩</h2>
-            <p>Con gì đập thì sống, không đập thì chết?</p>
+            <h2>Câu hỏi 1 😈</h2>
+            <p>Cái gì đen khi bạn mua nó, đỏ lúc bạn dùng nó và xám xịt khi bạn vứt nó đi?</p>
             <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('con tim', 'q2', 'Sai rồi, hãy nhập lại xem nào!')">Trả lời</button>
+            <button onclick="checkAnswer('than', 'q2', 'Đọc kỹ lại xem, vật gì đốt lên màu đỏ?', 'cuc than', 'than cui')">Trả lời</button>
         `
     },
     q2: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
-            <h2>Câu hỏi 2 (Cung Hoàng Đạo) ♈</h2>
-            <p>Bạch Dương có biểu tượng là con gì?</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <h2>Câu hỏi 2 🤯</h2>
+            <p>Có một từ mà 100% người dân Việt Nam đều phát âm sai. Đó là từ gì?</p>
+            <input type="text" id="answer" placeholder="Nhập từ..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('con cuu', 'q3', 'Sai rồi, cung của mình mà không nhớ sao!')">Trả lời</button>
+            <button onclick="checkAnswer('sai', 'q3', 'Đơn giản lắm, nghĩ theo nghĩa đen nhé!')">Trả lời</button>
         `
     },
     q3: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
-            <h2>Câu hỏi 3 (Dân gian - Trí tuệ) 🧠</h2>
-            <p>Vừa bằng hạt đỗ, ăn giỗ cả làng. (Là con gì?)</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <h2>Câu hỏi 3 🕵️</h2>
+            <p>Bà đó bả chết bả bay lên trời. Hỏi bà ấy chết năm bao nhiêu tuổi (nhập số)?</p>
+            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('con ruồi', 'q4', 'Sai rồi, gợi ý là loài này hay bay quanh mâm cơm nhé!', 'ruoi')">Trả lời</button>
+            <button onclick="checkAnswer('73', 'q4', 'Hãy đọc lái chữ bả bay xem ra số mấy nhé!', 'bay ba')">Trả lời</button>
         `
     },
     q4: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
-            <h2>Câu hỏi 4 (Dân gian - Hại não) 🔥</h2>
-            <p>Thân em nửa chuột nửa chim, ban ngày treo ngược, tối tìm mồi bay. (Là con gì?)</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <h2>Câu hỏi 4 🔠</h2>
+            <p>Từ nào trong tiếng Việt có 9 chữ 'h'?</p>
+            <input type="text" id="answer" placeholder="Nhập từ..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('con dơi', 'q5', 'Chưa đúng! Loài này thường ngủ treo ngược trong hang nha!', 'doi')">Trả lời</button>
+            <button onclick="checkAnswer('chinh', 'q5', 'Nghĩ thử xem 9 h (chín h) ghép lại đọc là gì?', 'chu chinh')">Trả lời</button>
         `
     },
     q5: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
-            <h2>Câu hỏi 5 (Dân gian - Lươn lẹo) 👑</h2>
-            <p>Chẳng lợp mà thành mái, chẳng cấy mà mọc đều, già thì trắng phau phau, non thì đen kin kít? (Là cái gì?)</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <h2>Câu hỏi 5 ➗</h2>
+            <p>Một thợ mộc cưa khúc gỗ dài 10m thành các khúc 1m. Mỗi lần cưa mất 1 phút. Hỏi làm liên tục thì để cưa xong tốn bao nhiêu phút?</p>
+            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('mái tóc', 'q6', 'Sai rồi, cố suy nghĩ xem trên cơ thể có cái gì giống vậy!', 'toc')">Trả lời</button>
+            <button onclick="checkAnswer('9', 'q6', 'Nhát cưa cuối cùng là đứt luôn khúc cuối rồi, tính lại đi!', '9 phut', 'chin phut')">Trả lời</button>
         `
     },
     q6: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
-            <h2>Câu hỏi 6 💡</h2>
-            <p>Tôi có 3 quả táo, bạn lấy đi 2 quả. Vậy bạn có mấy quả?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <h2>Câu hỏi 6 🔎</h2>
+            <p>Ba phòng: Phòng 1 đầy lửa, Phòng 2 đầy sát thủ, Phòng 3 có bầy sư tử nhịn đói 3 năm. Vào phòng nào an toàn nhất (nhập số)?</p>
+            <input type="text" id="answer" placeholder="VD: 1, 2, 3..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('2', 'q7', 'Bài toán lớp 1 nha, đọc kĩ đề là bạn có mấy quả!', '2 qua')">Trả lời</button>
+            <button onclick="checkAnswer('3', 'q7', 'Sư tử nhịn đói 3 năm thì sao nhỉ?', 'phong 3')">Trả lời</button>
         `
     },
     q7: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
-            <h2>Câu hỏi 7 ⚖️</h2>
-            <p>Bố của Mary có 4 cô con gái là: Nana, Nene, Nini. Tên cô gái thứ 4 là gì?</p>
-            <input type="text" id="answer" placeholder="Nhập tên..." autocomplete="off">
+            <h2>Câu hỏi 7 🎩</h2>
+            <p>Cái gì rõ ràng thuộc về bạn, nhưng những người xung quanh bạn lại sử dụng nó nhiều hơn bạn?</p>
+            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('mary', 'q8', 'Dễ lắm, từ từ suy nghĩ là ra ngay.', 'ma ry')">Trả lời</button>
+            <button onclick="checkAnswer('ten', 'q8', 'Mọi người hay dùng cái đó để gọi bạn!', 'cai ten', 'ten cua ban')">Trả lời</button>
         `
     },
     q8: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
-            <h2>Câu hỏi 8 🔢</h2>
-            <p>Số tiếp theo trong dãy số: 1, 1, 2, 3, 5, 8, ... là số nào?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <h2>Câu hỏi 8 📐</h2>
+            <p>Án mạng ở một ngôi nhà HÌNH TRÒN. Lời khai: Người hầu đang quét góc nhà. Đầu bếp đang thái thịt. Ai là hung thủ giả dối?</p>
+            <input type="text" id="answer" placeholder="Nhập tên người..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('13', 'q9', 'Gợi ý: Tìm tổng 2 số liền trước.')">Trả lời</button>
+            <button onclick="checkAnswer('nguoi hau', 'q9', 'Nhà hình tròn thì có CÁI GÓC nào không?', 'nguoi hau gai')">Trả lời</button>
         `
     },
     q9: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
-            <h2>Câu hỏi 9 🚂</h2>
-            <p>Một tàu điện tốc hành chạy về hướng Nam, gió thổi về hướng Tây Bắc. Khói tàu bay về hướng nào?</p>
-            <input type="text" id="answer" placeholder="Nhập từ..." autocomplete="off">
+            <h2>Câu hỏi 9 🏆</h2>
+            <p>Tháng nào trong năm có 28 ngày?</p>
+            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('không có khói', 'q10', 'Bị lừa rồi nhé! Đọc kỹ đó là tàu gì?', 'khong')">Trả lời</button>
+            <button onclick="checkAnswer('12', 'q10', 'Người ta hỏi tháng nào có 28 ngày, chứ đâu hỏi tháng nào CHỈ CÓ 28 ngày?', 'tat ca', '12 thang', 'thang nao cung co')">Trả lời</button>
         `
     },
     q10: {
@@ -191,9 +191,8 @@ const screens = {
     rejected: {
         render: () => `
             <h2>😞</h2>
-            <p>Tao rất tiếc.</p>
+            <p>Tôi rất tiếc.</p>
             <p>Xin cảm ơn vì đã tham gia.</p>
-            <p>Chúc Huyền sinh nhật hạnh phúc!</p>
             <br>
             <button onclick="resetGame()">Quay lại trang đầu tiên</button>
         `
@@ -260,13 +259,14 @@ function checkDob() {
     }
 }
 
-function checkAnswer(expectedResult, nextScreen, errorMsg, alternativeResult = null) {
+function checkAnswer(expectedResult, nextScreen, errorMsg, ...alternativeResults) {
     const input = document.getElementById('answer');
     const rawAnswer = input.value.trim().toLowerCase();
     const userAnswer = removeAccents(rawAnswer);
     const expected = removeAccents(expectedResult.toLowerCase());
+    const normalizedAlts = alternativeResults.map(a => removeAccents(a.toLowerCase()));
     
-    if (userAnswer === expected || (alternativeResult && userAnswer === alternativeResult)) {
+    if (userAnswer === expected || normalizedAlts.includes(userAnswer)) {
         changeScreen(nextScreen);
     } else {
         state.error = errorMsg;
