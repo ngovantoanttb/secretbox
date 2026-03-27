@@ -72,7 +72,7 @@ const screens = {
     reject_questions: {
         render: () => `
             <h2>Cảm ơn bạn đã ghé qua! 👋</h2>
-            <p>Rất tiếc vì bạn không thể tham gia thử thách.</p>
+            <p>Rất tiếc vì bạn không thể tham gia thử thách. Chúc bạn ngày tốt lành</p>
             <br>
             <button onclick="resetGame()">Quay lại màn hình chính</button>
         `
@@ -81,90 +81,140 @@ const screens = {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 10%"></div></div>
             <h2>Câu hỏi 1 😈</h2>
-            <p>Một cây gậy và một quả bóng giá 1.10 đô la. Cây gậy đắt hơn quả bóng 1.00 đô la. Quả bóng giá bao nhiêu xu?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <p>Hình nào khác với hình còn lại?</p>
+            <img src="./access/quest/1.png" alt="Câu hỏi 1" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('10', 'q2', 'Sai rồi! Gợi ý: Nếu bóng là 10 xu thì gậy là 1.10 đô, tổng sẽ là 1.20 đô mất.', 'nam', '5 xu', 'nam xu')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'C', 'q2', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'C', 'q2', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'C', 'q2', 'Đúng rồi! Bạn thật tinh mắt.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'C', 'q2', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+                <button class="option-btn" onclick="checkChoice('E', 'C', 'q2', 'Sai rồi! Hãy thử lại nhé.')">E</button>
+            </div>
         `
     },
     q2: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 20%"></div></div>
             <h2>Câu hỏi 2 🤯</h2>
-            <p>Nếu bạn mất 5 phút để luộc chín 1 quả trứng, vậy bạn mất bao nhiêu phút để luộc chín 5 quả trứng cùng lúc?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <p>Cho hình bên trái. Hình bên trái còn thiếu hình nào trong số các hình sau?</p>
+            <img src="./access/quest/2.png" alt="Câu hỏi 2" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('5', 'q3', 'Sai rồi! Gợi ý: Luộc cùng lúc trong 1 nồi thì thời gian vẫn vậy thôi.', '5 phut', 'nam', 'nam phut')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'B', 'q3', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'B', 'q3', 'Đúng rồi! Bạn thật tinh mắt.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'B', 'q3', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'B', 'q3', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+                <button class="option-btn" onclick="checkChoice('E', 'B', 'q3', 'Sai rồi! Hãy thử lại nhé.')">E</button>
+            </div>
         `
     },
     q3: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 30%"></div></div>
             <h2>Câu hỏi 3 🕵️</h2>
-            <p>Bác sĩ đưa cho bạn 3 viên thuốc và dặn cứ 30 phút uống 1 viên. Hỏi sau bao nhiêu phút bạn sẽ uống hết số thuốc đó?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <p>Số còn thiếu ở chỗ dấu chấm hỏi là số nào?</p>
+            <img src="./access/quest/3.png" alt="Câu hỏi 3" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('60', 'q4', 'Sai rồi! Gợi ý: Viên đầu tiên bạn uống ngay lập tức ở phút thứ 0.', '60 phut', 'sau muoi', '1 tieng')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'B', 'q4', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'B', 'q4', 'Đúng rồi! Bạn thật tinh mắt.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'B', 'q4', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'B', 'q4', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+            </div>
         `
     },
     q4: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 40%"></div></div>
             <h2>Câu hỏi 4 🔠</h2>
-            <p>Có hai người cha và hai người con đi câu cá. Họ câu được chính xác 3 con cá. Lúc về mỗi người xách 1 con. Vì sao?</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <p>Cho hình bên trái. Hình bên trái còn thiếu hình nào trong số các hình sau (bên phải)?</p>
+            <img src="./access/quest/4.png" alt="Câu hỏi 4" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('3 nguoi', 'q5', 'Sai rồi! Gợi ý: Hãy nghĩ về các thế hệ trong cùng một gia đình.', 'co 3 nguoi', 'ong bo con', 'ong, bo, con')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'D', 'q5', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'D', 'q5', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'D', 'q5', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'D', 'q5', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
+                <button class="option-btn" onclick="checkChoice('E', 'D', 'q5', 'Sai rồi! Hãy thử lại nhé.')">E</button>
+                <button class="option-btn" onclick="checkChoice('F', 'D', 'q5', 'Sai rồi! Hãy thử lại nhé.')">F</button>
+            </div>
         `
     },
     q5: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 50%"></div></div>
             <h2>Câu hỏi 5 ➗</h2>
-            <p>Một nông dân có 17 con cừu. Tất cả trừ 9 con đều chết. Hỏi người nông dân còn sống bao nhiêu con cừu?</p>
-            <input type="text" id="answer" placeholder="Nhập số..." autocomplete="off">
+            <p>Hình lục giác nào trong số các hình A, B, C, D và E có thể thêm vào một dấu chấm sao cho cả hai dấu chấm đáp ứng được cùng điều kiện như hai dấu chấm trong hình lục giác bên trái?</p>
+            <img src="./access/quest/5.png" alt="Câu hỏi 5" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('9', 'q6', 'Sai rồi! Gợi ý: Đọc kỹ lại câu hỏi, TẤT CẢ TRỪ 9 CON ĐỀU CHẾT.', '9 con', 'chin')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'D', 'q6', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'D', 'q6', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'D', 'q6', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'D', 'q6', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
+                <button class="option-btn" onclick="checkChoice('E', 'D', 'q6', 'Sai rồi! Hãy thử lại nhé.')">E</button>
+            </div>
         `
     },
     q6: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 60%"></div></div>
             <h2>Câu hỏi 6 🔎</h2>
-            <p>Bạn đang chạy marathon và vượt qua người chạy cuối cùng. Bạn đang ở vị trí thứ mấy?</p>
-            <input type="text" id="answer" placeholder="Nhập câu trả lời..." autocomplete="off">
+            <p>Số nào sẽ thay vào dấu chấm hỏi trong hình bên dưới?</p>
+            <img src="./access/quest/6.png" alt="Câu hỏi 6" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('người cuối cùng', 'q7', 'Sai rồi! Gợi ý: Nếu bạn chạy sau người cuối cùng thì bạn mới là người cuối cùng chứ, sao mà vượt họ được!', 'khong co', 'vo ly', 'sai')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'A', 'q7', 'Đúng rồi! Bạn thật tinh mắt.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'A', 'q7', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'A', 'q7', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'A', 'q7', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+            </div>
         `
     },
     q7: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
             <h2>Câu hỏi 7 🎩</h2>
-            <p>Cái gì luôn luôn đến nhưng không bao giờ tới?</p>
-            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
+            <p>Nhóm hình bên trái còn thiếu hình nào trong số các hình bên phải?</p>
+            <img src="./access/quest/7.png" alt="Câu hỏi 7" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('ngay mai', 'q8', 'Sai rồi! Gợi ý: Dù bạn thức dậy vào ngày nào thì tên gọi của đối tượng đó cũng đã thay đổi.', 'thu tu ranh', 'tuong lai')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'C', 'q8', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'C', 'q8', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'C', 'q8', 'Đúng rồi! Bạn thật tinh mắt.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'C', 'q8', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+            </div>
         `
     },
     q8: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
             <h2>Câu hỏi 8 📐</h2>
-            <p>Trước khi đỉnh Everest được con người khám phá, ngọn núi nào cao nhất thế giới?</p>
-            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
+            <p>Điền vào dấu chấm hỏi số thích hợp</p>
+            <img src="./access/quest/8.png" alt="Câu hỏi 8" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('everest', 'q9', 'Sai rồi! Gợi ý: Dù con người đã tìm ra nó hay chưa thì sự thật vẫn không đổi.', 'nui everest', 'dinh everest')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'B', 'q9', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'B', 'q9', 'Đúng rồi! Bạn thật tinh mắt.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'B', 'q9', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'B', 'q9', 'Sai rồi! Hãy thử lại nhé.')">D</button>
+            </div>
         `
     },
     q9: {
         render: () => `
             <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
             <h2>Câu hỏi 9 🏆</h2>
-            <p>Nếu bạn chỉ có một que diêm, và bước vào một căn phòng tối lạnh lẽo có một bếp dầu, một bếp củi và một ngọn nến. Bạn sẽ thắp cái nào đầu tiên?</p>
-            <input type="text" id="answer" placeholder="Trả lời..." autocomplete="off">
+            <p>Hình còn thiếu là hình nào?</p>
+            <img src="./access/quest/9.png" alt="Câu hỏi 9" class="question-img">
             <div class="error-msg">${state.error}</div>
-            <button onclick="checkAnswer('que diem', 'q10', 'Sai rồi! Gợi ý: Cần lửa để thắp những thứ kia thì bạn phải bật cái gì lên trước?', 'diem')">Trả lời</button>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'D', 'q10', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
+            </div>
         `
     },
     q10: {
@@ -213,8 +263,8 @@ const screens = {
     rejected: {
         render: () => `
             <h2>😞</h2>
-            <p>Tôi rất tiếc.</p>
-            <p>Xin cảm ơn vì đã tham gia.</p>
+            <p>Tôi rất tiếc khi bạn từ chối.</p>
+            <p>Xin cảm ơn vì đã tham gia. Chúc bạn có một ngày tốt lành.</p>
             <br>
             <button onclick="resetGame()">Quay lại trang đầu tiên</button>
         `
@@ -222,8 +272,25 @@ const screens = {
 };
 
 function render() {
-    app.innerHTML = screens[state.currentScreen].render();
+    let screenHtml = screens[state.currentScreen].render();
     
+    // Thêm lightbox vào cuối mỗi giao diện
+    screenHtml += `
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+            <img id="lightbox-img" src="">
+        </div>
+    `;
+    
+    app.innerHTML = screenHtml;
+    
+    // Gắn sự kiện click cho ảnh câu hỏi
+    const questionImgs = app.querySelectorAll('.question-img');
+    questionImgs.forEach(img => {
+        img.addEventListener('click', function() {
+            openLightbox(this.src);
+        });
+    });
+
     // Thêm event listener cho phím Enter
     const input = document.getElementById('answer');
     if (input) {
@@ -293,6 +360,31 @@ function checkAnswer(expectedResult, nextScreen, errorMsg, ...alternativeResults
     } else {
         state.error = errorMsg;
         render();
+    }
+}
+
+function checkChoice(userChoice, expectedChoice, nextScreen, errorMsg) {
+    if (userChoice === expectedChoice) {
+        changeScreen(nextScreen);
+    } else {
+        state.error = errorMsg;
+        render();
+    }
+}
+
+function openLightbox(imgSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (lightbox && lightboxImg) {
+        lightboxImg.src = imgSrc;
+        lightbox.classList.add('active');
+    }
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+        lightbox.classList.remove('active');
     }
 }
 

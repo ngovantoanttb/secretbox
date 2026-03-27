@@ -151,6 +151,45 @@ button:hover {
     to { transform: scale(1.2); }
 }
 
+.question-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: zoom-in;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.option-btn {
+    background: #fff;
+    color: #ff6b81;
+    border: 2px solid #ff6b81;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.option-btn:hover {
+    background: #ff6b81;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 107, 129, 0.3);
+}
+
 /* Tối ưu hóa giao diện di động (Mobile Responsive) */
 @media screen and (max-width: 480px) {
     .container {
@@ -189,4 +228,40 @@ button:hover {
         padding: 15px;
         font-size: 0.95em;
     }
+}
+
+/* Lightbox styles */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox img {
+    width: 95vw;
+    height: 95vh;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox.active img {
+    transform: scale(1);
 }
