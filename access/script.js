@@ -9,6 +9,14 @@ const state = {
 const agreeAudio = new Audio('./access/music/hbbd.mp3');
 const rejectAudio = new Audio('./access/music/tuchoi.mp3');
 
+// Preload hình ảnh các câu hỏi để tránh bị trễ khi tải
+const preloadedImages = [];
+for (let i = 1; i <= 9; i++) {
+    const img = new Image();
+    img.src = `./access/quest/${i}.png`;
+    preloadedImages.push(img);
+}
+
 function playAgreeMusic() {
     agreeAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
     changeScreen('gift');
