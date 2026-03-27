@@ -3,15 +3,18 @@ const app = document.getElementById('app');
 const state = {
     currentScreen: 'greeting',
     error: '',
-    progress: 0
+    progress: 0,
+    userName: '',
+    isSpecialPerson: false
 };
 
 const agreeAudio = new Audio('./access/music/hbbd.mp3');
 const rejectAudio = new Audio('./access/music/tuchoi.mp3');
+const altMusicAudio = new Audio('./access/music/music.mp3');
 
 // Preload hình ảnh các câu hỏi để tránh bị trễ khi tải
 const preloadedImages = [];
-for (let i = 1; i <= 9; i++) {
+for (let i = 1; i <= 10; i++) {
     const img = new Image();
     img.src = `./access/quest/${i}.png`;
     preloadedImages.push(img);
@@ -19,7 +22,7 @@ for (let i = 1; i <= 9; i++) {
 
 function playAgreeMusic() {
     agreeAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
-    changeScreen('gift');
+changeScreen('letter');
 }
 
 function playRejectMusic() {
@@ -30,6 +33,11 @@ function playRejectMusic() {
 function playRejectEarlyMusic() {
     rejectAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
     changeScreen('reject_questions');
+}
+
+function playAltMusic() {
+    altMusicAudio.play().catch(e => console.log('Không thể phát nhạc:', e));
+    changeScreen('letter_alt');
 }
 
 // Hàm loại bỏ dấu tiếng Việt để kiểm tra đáp án dễ hơn
@@ -60,7 +68,7 @@ const screens = {
     },
     dobCheck: {
         render: () => `
-            <h2>Xin chào bạn Huyền! 👋</h2>
+            <h2>Xin chào bạn ${state.userName}! 👋</h2>
             <p>Mời bạn trả lời câu tiếp theo để xác nhận nhé.</p>
             <p>Bạn sinh ngày tháng năm nào?</p>
             <input type="text" id="answer" placeholder="VD: DD/MM/YYYY" autocomplete="off">
@@ -218,10 +226,10 @@ const screens = {
             <img src="./access/quest/9.png" alt="Câu hỏi 9" class="question-img">
             <div class="error-msg">${state.error}</div>
             <div class="options-grid">
-                <button class="option-btn" onclick="checkChoice('A', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">A</button>
-                <button class="option-btn" onclick="checkChoice('B', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">B</button>
-                <button class="option-btn" onclick="checkChoice('C', 'D', 'q10', 'Sai rồi! Hãy thử lại nhé.')">C</button>
-                <button class="option-btn" onclick="checkChoice('D', 'D', 'q10', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
+                <button class="option-btn" onclick="checkChoice('A', 'D', '${state.isSpecialPerson ? 'q10' : 'q10_alt'}', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'D', '${state.isSpecialPerson ? 'q10' : 'q10_alt'}', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'D', '${state.isSpecialPerson ? 'q10' : 'q10_alt'}', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'D', '${state.isSpecialPerson ? 'q10' : 'q10_alt'}', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
             </div>
         `
     },
@@ -235,21 +243,46 @@ const screens = {
             <button onclick="checkAnswer('01/01/2018', 'decision', 'Sai rồi, không có gợi ý đâu nhé!')">Hoàn thành</button>
         `
     },
+    q10_alt: {
+        render: () => `
+            <div class="progress-bar"><div class="progress" style="width: 100%"></div></div>
+            <h2>Câu hỏi 10 😊</h2>
+            <p>Số nào sẽ là số thay thế cho dấu chấm hỏi?</p>
+            <img src="./access/quest/10.png" alt="Câu hỏi 10" class="question-img">
+            <div class="error-msg">${state.error}</div>
+            <div class="options-grid">
+                <button class="option-btn" onclick="checkChoice('A', 'D', 'decision_alt', 'Sai rồi! Hãy thử lại nhé.')">A</button>
+                <button class="option-btn" onclick="checkChoice('B', 'D', 'decision_alt', 'Sai rồi! Hãy thử lại nhé.')">B</button>
+                <button class="option-btn" onclick="checkChoice('C', 'D', 'decision_alt', 'Sai rồi! Hãy thử lại nhé.')">C</button>
+                <button class="option-btn" onclick="checkChoice('D', 'D', 'decision_alt', 'Đúng rồi! Bạn thật tinh mắt.')">D</button>
+            </div>
+        `
+    },
     decision: {
         render: () => `
             <h2>Hoàn thành xuất sắc! 🎉</h2>
             <p>Xin chào, cảm ơn vì đã tham gia trò chơi này.</p>
             <p>Khi ấn vào mở quà thì đây là những điều t muốn nói với m. Hãy mở nó nhé!</p>
             <br>
-            <button onclick="playAgreeMusic()">Đồng ý</button>
+            <button onclick="changeScreen('gift')">Đồng ý</button>
             <button class="secondary-btn" onclick="playRejectMusic()">Từ Chối</button>
+        `
+    },
+    decision_alt: {
+        render: () => `
+            <h2>Hoàn thành xuất sắc! 🎉</h2>
+            <p>Xin chúc mừng bạn đã vượt qua tất cả câu hỏi.</p>
+            <p>Bạn có muốn nhận một phần quà nhỏ từ tớ không?</p>
+            <br>
+            <button onclick="changeScreen('gift_alt')">Đồng ý</button>
+            <button class="secondary-btn" onclick="playRejectMusic()">Từ chối</button>
         `
     },
     gift: {
         render: () => `
             <h2>Một món quà dành cho bạn! 🎉</h2>
             <p>Nhấn vào hộp quà bên dưới để xem t muốn nói gì nhé.</p>
-            <div class="gift-box" onclick="changeScreen('letter')">🎁</div>
+            <div class="gift-box" onclick="playAgreeMusic()">🎁</div>
         `
     },
     letter: {
@@ -263,6 +296,25 @@ const screens = {
 
 </p>
                 <p>Cảm ơn em, người từng là tất cả của anh...<span class="heart">❤️</span></p>
+            </div>
+            <br>
+            <button onclick="resetGame()">Quay lại trang đầu tiên</button>
+        `
+    },
+    gift_alt: {
+        render: () => `
+            <h2>Bạn Đã Hoàn Thành! 🎉</h2>
+            <p>Nhấn vào hộp quà bên dưới để xem phần thưởng nhé.</p>
+            <div class="gift-box" onclick="playAltMusic()">🎁</div>
+        `
+    },
+    letter_alt: {
+        render: () => `
+            <h2>Chúc Mừng Sinh Nhật ${state.userName}! 🎂</h2>
+            <div class="letter">
+                <p>Gửi ${state.userName},</p>
+                <p>Hôm nay là ngày đặc biệt của cậu. Nhưng tớ không đủ can đảm để nói trực tiếp với cậu. Thôi thì chúc cậu sinh nhật vui vẻ bên gia đình và bạn bè. Chúc cậu tuổi mới ý nghĩa, hạnh phúc học giỏi, đạt được những gì cậu mong muốn. Mọi thứ hoàn toàn xứng đáng với nỗ lực của cậu, hãy luôn hết mình với đam mê của mình và hãy giữ gìn sức khỏe nhé, cuối cùng chúc cậu hạnh phúc bên người cậu thương.</p>
+                <p>Happy Birthday! <span class="heart">🎈🎁</span></p>
             </div>
             <br>
             <button onclick="resetGame()">Quay lại trang đầu tiên</button>
@@ -329,29 +381,42 @@ function resetGame() {
     agreeAudio.currentTime = 0;
     rejectAudio.pause();
     rejectAudio.currentTime = 0;
+    altMusicAudio.pause();
+    altMusicAudio.currentTime = 0;
     changeScreen('greeting');
 }
 
 function checkName() {
     const input = document.getElementById('answer');
-    const userAnswer = removeAccents(input.value.trim().toLowerCase());
+    const rawAnswer = input.value.trim();
     
-    if (userAnswer === 'huyen') {
-        changeScreen('dobCheck');
-    } else {
-        state.error = 'Bạn không phải là người đặc biệt hôm nay! Hãy nhập lại tên cho đúng nhé.';
+    if (rawAnswer === '') {
+        state.error = 'Vui lòng nhập tên của bạn.';
         render();
+        return;
     }
+    
+    state.userName = rawAnswer;
+    changeScreen('dobCheck');
 }
 
 function checkDob() {
     const input = document.getElementById('answer');
     const userAnswer = input.value.trim();
+    const normalizedName = removeAccents(state.userName.toLowerCase());
     
-    if (userAnswer === '29/03/2006' || userAnswer === '29/3/2006') {
+    const isHuyen = normalizedName === 'huyen';
+    const isExactDob = userAnswer === '29/03/2006' || userAnswer === '29/3/2006';
+    const isMarch29 = userAnswer.startsWith('29/03') || userAnswer.startsWith('29/3');
+    
+    if (isHuyen && isExactDob) {
+        state.isSpecialPerson = true;
+        changeScreen('notification');
+    } else if (isMarch29) {
+        state.isSpecialPerson = false;
         changeScreen('notification');
     } else {
-        state.error = 'Xin lỗi, bạn không phải là người đặc biệt trong hôm nay!';
+        state.error = `Xin lỗi ${state.userName}, bạn không phải là người có sinh nhật trong hôm nay!`;
         render();
     }
 }
