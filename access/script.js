@@ -407,16 +407,24 @@ function checkDob() {
     
     const isHuyen = normalizedName === 'huyen';
     const isExactDob = userAnswer === '29/03/2006' || userAnswer === '29/3/2006';
-    const isMarch29 = userAnswer.startsWith('29/03') || userAnswer.startsWith('29/3');
+    
+    const today = new Date();
+    const currentD = today.getDate();
+    const currentM = today.getMonth() + 1;
+    
+    const parts = userAnswer.split('/');
+    const userD = parseInt(parts[0], 10);
+    const userM = parseInt(parts[1], 10);
+    const isBirthdayToday = (userD === currentD && userM === currentM);
     
     if (isHuyen && isExactDob) {
         state.isSpecialPerson = true;
         changeScreen('notification');
-    } else if (isMarch29) {
+    } else if (isBirthdayToday) {
         state.isSpecialPerson = false;
         changeScreen('notification');
     } else {
-        state.error = `Xin lỗi ${state.userName}, bạn không phải là người có sinh nhật trong hôm nay!`;
+        state.error = `Xin lỗi ${state.userName}, bạn không phải là người đặc biệt trong hôm nay!`;
         render();
     }
 }
